@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Kibana JSON Prettier",
+  "description": "Show prettier JSON Kibana fields in Discover section, inside the document details.",
+  "permissions": ["declarativeContent", "activeTab", "storage"],
+  "version": "1.0",
+  "options_page": "options.html",
+  "icons": {
+    "16": "images/elasticsearch.png",
+    "32": "images/elasticsearch.png",
+    "48": "images/elasticsearch.png",
+    "128": "images/elasticsearch.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "css": ["styles/content.css"],
+      "matches": ["https://*/app/discover*"]
+    }
+  ]
+}
