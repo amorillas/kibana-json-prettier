@@ -1,5 +1,7 @@
 "use strict";
 
+const markClass = "kibana-json-prettier__prettified";
+
 // Kudos to https://stackoverflow.com/users/27862/user123444555621 for the syntaxHighlight function
 // https://stackoverflow.com/questions/4810841/pretty-print-json-using-javascript
 const syntaxHighlight = (json) => {
@@ -28,6 +30,7 @@ const pretifyTextInElement = (element) => {
   try {
     const json = JSON.parse(element.innerText);
     element.innerHTML = syntaxHighlight(json);
+    element.classList.add(markClass);
   } catch(e) {}
 }
 
@@ -36,7 +39,7 @@ const findFieldValueElementsInDocViewer = () => {
     const columns = data.columns.split(",");
     for (const i in columns) {
       const fieldValues = Array.from(
-        document.querySelectorAll(".kbnDocViewer__value[data-test-subj=tableDocViewRow-" + columns[i].trim() + "-value]")
+        document.querySelectorAll(".kbnDocViewer__value[data-test-subj=tableDocViewRow-" + columns[i].trim() + "-value]:not(." + markClass + ")")
       );
       for (const j in fieldValues) {
         pretifyTextInElement(fieldValues[j]);
